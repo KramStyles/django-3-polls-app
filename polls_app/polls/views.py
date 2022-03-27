@@ -1,5 +1,5 @@
 from django.http import HttpResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.template import loader
 
 from .models import Question, Choice
@@ -27,8 +27,9 @@ def details(request, ques_id):
 
 
 def results(request, ques_id):
-    response = "<h2>You are looking at results of Question: %s</h2>"
-    return HttpResponse(response % ques_id)
+    # Introducing and using get_objects_or_404 method
+    question = get_object_or_404(Question, pk=ques_id)
+    return render(request, 'polls/results.html', {'question': question})
 
 
 def vote(request, ques_id):
