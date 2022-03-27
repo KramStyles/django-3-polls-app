@@ -1,22 +1,29 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.shortcuts import render
+from django.template import loader
 
 from .models import Question, Choice
 
 
 def index(request):
     choice = Choice.objects.order_by('-votes')
-    # choice_list = [item for item in choice]
-    info = {
-        'choice': list(choice)
+    context = {
+        'choice': choice
     }
-    # return HttpResponse("<h2>Hello and Welcome to the Polls app</h2>")
-    return render(request, 'polls/index.html', context=info)
+    return render(request, 'polls/index.html', context)
 
 
 def details(request, ques_id):
-    response = "<h2>You are looking at Question: %s</h2>" % ques_id
-    return HttpResponse(response)
+    try:
+        question = Question.objects.get(pk=ques_id)
+        context = {
+            'question': question,
+            'id': ques_id
+        }
+        template = loader.get_template('polls/details.html')
+    except Question.DoesNotExist:
+        raise Http404("Question does not exist")
+    return HttpResponse(template.render(context, request))
 
 
 def results(request, ques_id):
