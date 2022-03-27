@@ -16,5 +16,15 @@
 <div class="jumbotron text-white bg-dark text-center">
     <h1>You are looking at results of Question: {{ question.txt_question }}</h1>
 </div>
+<div class="container w-50 m-auto">
+    <h3>Result of Votes</h3>
+    <ul class="list-group">
+        {% for item in question.choice_set.all %}
+            <li class="list-group-item list-group-item-action">{{ item.txt_choice }} --  <span class="badge badge-dark float-right p-3">{{ item.votes }} Vote{{ item.votes|pluralize }}</span></li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'polls:detail' question.id %}" class="btn btn-dark btn-block p-3 mt-5">Vote Again?</a>
+</div>
 </body>
 </html>

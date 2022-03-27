@@ -16,5 +16,26 @@
 <div class="jumbotron text-white bg-dark text-center">
     <h1>You are looking at Question: {{ question.txt_question }}</h1>
 </div>
+<div class="container">
+    <form action="{% url 'polls:vote' question.id %}" method="post">
+{#    <form action="{% url 'vote' question.id %}" method="post">#}
+        {% csrf_token %}
+        {% if error_message %}
+            <p><b>{{ error_message }}</b></p>
+        {% endif %}
+
+        <div class="form-check">
+            {% for choice in question.choice_set.all %}
+                <p>
+                <label for="choice{{ forloop.counter }}">
+                    <input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ choice.id }}"> {{ choice.txt_choice }}
+                </label>
+                </p>
+            {% endfor %}
+        </div>
+
+        <button type="submit" class="btn btn-dark">Vote</button>
+    </form>
+</div>
 </body>
 </html>
