@@ -1,8 +1,17 @@
 from django.http import HttpResponse
+from django.shortcuts import render
+
+from .models import Question, Choice
 
 
 def index(request):
-    return HttpResponse("<h2>Hello and Welcome to the Polls app</h2>")
+    choice = Choice.objects.order_by('-votes')
+    # choice_list = [item for item in choice]
+    info = {
+        'choice': list(choice)
+    }
+    # return HttpResponse("<h2>Hello and Welcome to the Polls app</h2>")
+    return render(request, 'polls/index.html', context=info)
 
 
 def details(request, ques_id):
