@@ -1,0 +1,9 @@
+body{
+    background-color: #ddd;
+    background-image: url("images/django_logo.png");
+}
+.my-form-design{
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #ffffffcc;
+}
