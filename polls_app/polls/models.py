@@ -2,6 +2,7 @@ import datetime
 
 from django.db import models
 from django.utils import timezone
+from django.contrib import admin
 
 
 class Question(models.Model):
@@ -11,6 +12,12 @@ class Question(models.Model):
     def __str__(self):
         return self.txt_question
 
+    # don't understand the connection here!
+    @admin.display(
+        boolean=True,
+        ordering='pub_date',
+        description='Published recently?',
+    )
     def recently_published(self):
         now = timezone.now()
         return now - datetime.timedelta(days=1) <= self.published_date <= now
