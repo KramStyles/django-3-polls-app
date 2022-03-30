@@ -2,8 +2,9 @@ import datetime
 
 from django.test import TestCase
 from django.utils import timezone
+from django.urls import reverse
 
-from .models import Question
+from .models import Question, Choice
 
 
 class QuestionModelTests(TestCase):
@@ -21,3 +22,23 @@ class QuestionModelTests(TestCase):
         time = timezone.now() - datetime.timedelta(hours=14)
         question = Question(published_date=time)
         self.assertTrue(question.recently_published())
+
+
+def create_choice(text):
+    Question(txt_question="What do you think about today?", published_date=timezone.now()).save()
+    question = Question.objects.first()
+    return question.choice_set.create(txt_choice=text)
+
+
+class ChoiceHomeViewTest(TestCase):
+    def test_no_choice(self):
+        response = self.client.get(reverse('polls:home'))
+        self.assertQuerysetEqual(response.context['choice'], [])
+        self.assertContains(response, 'No polls')
+        self.assertEqual(response.status_code, 200)
+
+    def test_past_questions(self):
+        create_choice('Past question')
+        response = self.client.get(reverse('polls:home'))
+        self.assertContains(response, 'Past question')
+
