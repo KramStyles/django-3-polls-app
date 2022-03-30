@@ -1,6 +1,6 @@
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.template import loader
+from django.utils import timezone
 from django.urls import reverse
 from django.views import generic
 
@@ -39,6 +39,10 @@ class IndexView(generic.ListView):
 class DetailsView(generic.DetailView):
     model = Question
     template_name = 'polls/details.html'
+
+    def get_queryset(self):
+        # Excludes unpublished questions
+        return Question.objects.filter(published_date__lte=timezone.now())
 
 
 #
