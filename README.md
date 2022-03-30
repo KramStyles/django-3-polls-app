@@ -42,6 +42,9 @@ In this part, you are to follow Django official documentation tutorial to create
 - Go back to GIT and checkout to master and pull the merged changes into your local master.
 - So you start the cycle again for each part of the tutorial and name each branch the topic treated in the part.
 
+## Link to Blog app
+- https://github.com/KramStyles/django-4-blog-app.git 
+
 ## Part II → Create a Blog Web Application
 
 In this part, you are to create a personal weblog Application.
