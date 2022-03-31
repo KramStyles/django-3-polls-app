@@ -15,12 +15,19 @@
 </div>
 <div class="container">
     {% if choice %}
-    <h3>Choices</h3>
-    <div class="list-group">
+    <h3>QUESTIONS</h3>
+    <ul class="list-group">
         {% for item in choice %}
-            <a href="{% url 'polls:result' 1 %}" class="list-group-item list-group-item-action">{{ item.txt_choice }}</a>
+            <li class='list-group-item list-group-item-action d-flex justify-content-between align-items-center'>{{ item.txt_question }}
+                <span class='float-right'>
+                    <a href="{% url 'polls:result' item.id %}" class="btn btn-outline-dark">See Results</a>
+                    <span><a href='{% url 'polls:detail' item.id %}' class='btn btn-dark'>Vote</a></span>
+                </span>
+            </li>
+            
+            
         {% endfor %}
-    </div>
+    </ul>
     {% else %}
         <h3>No polls are available.</h3>
 {% endif %}

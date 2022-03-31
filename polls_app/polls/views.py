@@ -9,6 +9,7 @@ from .models import Question, Choice
 
 def index(request):
     choice = Choice.objects.order_by('-votes')
+    choice = Question.objects.order_by('-published_date')
     context = {
         'choice': choice
     }
@@ -20,7 +21,8 @@ class IndexView(generic.ListView):
     context_object_name = 'choice'
 
     def get_queryset(self):
-        return Choice.objects.order_by('-votes')
+        return Question.objects.order_by('-published_date')
+        # return Choice.objects.order_by('-votes')
 
 
 # def details(request, ques_id):
