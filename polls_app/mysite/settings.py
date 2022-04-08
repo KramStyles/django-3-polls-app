@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-g8^fe9m38i5aq31(bpq7i%e(unzumkdfn1-4)^a#rn5cfzhs*_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['karm-django-poll.herokuapp.com', 'localhost']
 
 
 # Application definition
